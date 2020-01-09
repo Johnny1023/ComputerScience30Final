@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/drawer_host">
+
+    <fragment
+        android:id="@id/drawer_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" >
+        <action
+            android:id="@+id/action_drawer_host_to_ECG"
+            app:destination="@id/ECG" />
+    </fragment>
+    <fragment
+        android:id="@+id/ECG"
+        android:name="com.jophnny.myapplication.ECG"
+        android:label="ECG" />
+
+</navigation>
