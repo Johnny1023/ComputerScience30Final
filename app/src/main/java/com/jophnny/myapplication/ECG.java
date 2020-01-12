@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 /**
@@ -57,18 +59,26 @@ public class ECG extends Fragment {
         }
     }
 
-//    Button card1 = (Button) findViewById(R.id.card1);
-//    Button card2 = (Button) findViewById(R.id.card2);
-//    card1.setOnClickListener(new View.OnClickListener() {
-//        public void onClick(View v) {
-//            // Do something in response to button click
-//        }
-//    });
-//    card2.setOnClickListener(new View.OnClickListener() {
-//        public void onClick(View v) {
-//            // Do something in response to button click
-//        }
-//    });
+
+    // This is where the programmatically instantiated items sit
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button card1 = (Button) view.findViewById(R.id.card1);
+        Button card2 = (Button) view.findViewById(R.id.card2);
+        card1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+                Toast.makeText(getActivity(), "Card 1", Toast.LENGTH_SHORT).show();
+            }
+        });
+        card2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+                Toast.makeText(getActivity(), "Card 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     public void onAttach(Context context) {
