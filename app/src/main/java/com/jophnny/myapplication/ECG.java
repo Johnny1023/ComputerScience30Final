@@ -81,68 +81,90 @@ public class ECG extends Fragment {
 
     // This is where the programmatically instantiated items sit
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final TextView textItem = view.findViewById(R.id.text_box);
         textItem.setMovementMethod(new ScrollingMovementMethod());
 
-        String[] cards = new String[]{"1 of Oils", "2 of Oils", "3 of Oils", "4 of Oils", "5 of Oils", "6 of Oils",
-                "1 of Renewables", "2 of Renewables", "3 of Renewables", "4 of Renewables", "5 of Renewables", "6 of Renewables",
-                "1 of Industrials", "2 of Industrials", "3 of Industrials", "4 of Industrials", "5 of Industrials", "6 of Industrials",
-                "1 of Botany", "2 of Botany", "3 of Botany", "4 of Botany", "5 of Botany", "6 of Botany"};
-//        Game(cards, view);
-    }
-
-    final int[] choice = new int[1];
-
-    void Game(String[] cards, @NonNull View view) { // Operates the game
-        String[] hand1 = new String[2];
-        String[] hand2 = new String[2];
         Button card1 = (Button) view.findViewById(R.id.card1);
         Button card2 = (Button) view.findViewById(R.id.card2);
+        a = CardSelector(unselectable); // Selects cards for both players' hands
         card1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                choice[0] = 1;
+                hand1[0] = cards[a];
+                unselectable[a] = true;
+                a = CardSelector(unselectable);
+                hand1[1] = cards[a];
+                unselectable[a] = true;
+                a = CardSelector(unselectable);
+                hand2[0] = cards[a];
+                unselectable[a] = true;
+                a = CardSelector(unselectable);
+                hand2[1] = cards[a];
+                unselectable[a] = true;
+                p1p = p1p - p1ppt;
+                p2p = p2p - p2ppt;
+                Game(cards, view);
             }
         });
         card2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                choice[0] = 2;
+                hand1[0] = cards[a];
+                unselectable[a] = true;
+                a = CardSelector(unselectable);
+                hand1[1] = cards[a];
+                unselectable[a] = true;
+                a = CardSelector(unselectable);
+                hand2[0] = cards[a];
+                unselectable[a] = true;
+                a = CardSelector(unselectable);
+                hand2[1] = cards[a];
+                unselectable[a] = true;
+                p1p = p1p - p1ppt;
+                p2p = p2p - p2ppt;
+                Game(cards, view);
             }
         });
-        boolean[] unselectable = new boolean[24];
-        boolean P1turn = true;
-        boolean gaming = true;
-        int turncount = 1;
-        int a;
-        a = CardSelector(unselectable); // Selects cards for both players' hands
-        hand1[0] = cards[a];
-        unselectable[a] = true;
-        a = CardSelector(unselectable);
-        hand1[1] = cards[a];
-        unselectable[a] = true;
-        a = CardSelector(unselectable);
-        hand2[0] = cards[a];
-        unselectable[a] = true;
-        a = CardSelector(unselectable);
-        hand2[1] = cards[a];
-        unselectable[a] = true;
-        p1p = p1p - p1ppt;
-        p2p = p2p - p2ppt;
-        while (gaming) {
-            final TextView textItem = view.findViewById(R.id.text_box);
-            if (P1turn) {
+    }
+
+    final int[] choice = new int[1];
+    final String[] cards = new String[]{"1 of Oils", "2 of Oils", "3 of Oils", "4 of Oils", "5 of Oils", "6 of Oils",
+            "1 of Renewables", "2 of Renewables", "3 of Renewables", "4 of Renewables", "5 of Renewables", "6 of Renewables",
+            "1 of Industrials", "2 of Industrials", "3 of Industrials", "4 of Industrials", "5 of Industrials", "6 of Industrials",
+            "1 of Botany", "2 of Botany", "3 of Botany", "4 of Botany", "5 of Botany", "6 of Botany"};
+    String[] hand1 = new String[2];
+    String[] hand2 = new String[2];
+    boolean[] unselectable = new boolean[24];
+    boolean P1turn = true;
+    boolean gaming = true;
+    int turncount = 1;
+    int a;
+// TODO add instructions
+    void Game(final String[] cards, @NonNull final View view) { // Operates the game
+        final TextView textItem = view.findViewById(R.id.text_box);
+        Button card1 = (Button) view.findViewById(R.id.card1);
+        Button card2 = (Button) view.findViewById(R.id.card2);
+        if (gaming) {
+            if (P1turn && (choice[0] == 0)) {
                 textItem.append("Turn: " + turncount + "    ");
-                textItem.append("\n");
-                textItem.append("Player 1, play a card!");
-                textItem.append("\n");
-                textItem.append(hand1[0]+ "   ");
+                textItem.append("\n" + "Player 1, play a card!");
+                textItem.append("\n" + hand1[0]+ "   ");
                 textItem.append(hand1[1]);
-                textItem.append("\n");
                 p1p = p1p + p1ppt;
-                textItem.append("Current Pollution Point: " + p1p + ", Point Change Per Turn: " + p1ppt + ".");
-                textItem.append("\n");
-                while (choice[0] == 0) {}
+                textItem.append("\n" + "Current Pollution Point: " + p1p + ", Point Change Per Turn: " + p1ppt + ".");
+                card1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        choice[0] = 1;
+                        Game(cards,view);
+                    }
+                });
+                card2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        choice[0] = 2;
+                        Game(cards,view);
+                    }
+                });
+            } else if (P1turn && (choice[0] != 0)) {
                 CardEffect(1, hand1[choice[0] - 1]);
                 P1turn = false;
                 try {
@@ -153,17 +175,37 @@ public class ECG extends Fragment {
                 for (int j = 0; j < 5; j++) {textItem.append("\n");}
                 choice[0] = 0;
                 if (p1ppt >= 0) {Win(true, view); gaming = false;} // Finish game if one person nets a "net zero"
-            } else {
+//                card1.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        Game(cards,view);
+//                    }
+//                });
+//                card2.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        Game(cards,view);
+//                    }
+//                });
+                Game(cards,view);
+            } else if (!P1turn && (choice[0] == 0)) {
                 textItem.append("Turn: " + turncount + "    ");
-                textItem.append("\n");
-                textItem.append("Player 2, play a card!");
-                textItem.append("\n");
-                textItem.append(hand2[0]+ "   ");
+                textItem.append("\n" + "Player 2, play a card!");
+                textItem.append("\n" + hand2[0] + "   ");
                 textItem.append(hand2[1]);
-                textItem.append("\n");
                 p2p = p2p + p2ppt;
-                textItem.append("Current Pollution Point: " + p2p + ", Point Change Per Turn: " + p2ppt + ".");
-                textItem.append("\n");
+                textItem.append("\n" + "Current Pollution Point: " + p2p + ", Point Change Per Turn: " + p2ppt + ".");
+                card1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        choice[0] = 1;
+                        Game(cards,view);
+                    }
+                });
+                card2.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        choice[0] = 2;
+                        Game(cards,view);
+                    }
+                });
+            } else if (!P1turn && (choice[0] != 0)) {
                 CardEffect(2, hand1[choice[0] - 1]);
                 P1turn = true;
                 try {
@@ -172,9 +214,27 @@ public class ECG extends Fragment {
                 hand2[choice[0]-1] = cards[a];
                 unselectable[a] = true;
                 for (int j = 0; j < 5; j++) {textItem.append("\n");}
+                choice[0] = 0;
                 turncount++;
                 if (p2ppt >= 0) {Win(true, view); gaming = false;} // Finish game if one person nets a "net zero"
+//                card1.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        Game(cards,view);
+//                    }
+//                });
+//                card2.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        Game(cards,view);
+//                    }
+//                });
+                Game(cards,view);
             }
+        } else {
+            textItem.append("\n" + "This game has ended.");
+            card1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {}});
+            card2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {}});
         }
     }
     private static int CardSelector(boolean[] cardset) { // Picks an integer at random, it is later converted to a String, ex. 23
