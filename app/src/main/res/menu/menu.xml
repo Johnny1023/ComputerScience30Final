@@ -10,7 +10,10 @@
             android:id="@+id/ECG"/>
         <item android:title="Response"
             android:icon="@drawable/ic_response_black_24dp"
-        android:id="@+id/Response"/>
+            android:id="@+id/Response"/>
+        <item android:title="Instructions"
+            android:icon="@drawable/ic_instructions_black_24dp"
+            android:id="@+id/Instructions"/>
     </group>
 
 </menu>

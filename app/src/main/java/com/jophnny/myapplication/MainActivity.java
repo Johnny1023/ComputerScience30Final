@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new ECG()).commit();
-            navView.setCheckedItem(R.id.ECG);}
+                    new Instructions()).commit();
+            navView.setCheckedItem(R.id.Instructions);}
     }
 
     @Override
@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.Response:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Response()).commit();
+                break;
+            case R.id.Instructions:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Instructions()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="This app is built on a graphical interface and is easily navigable.\nIn the menu found through the top-left corner of this app, you'll find the tabs for the response answers, this page, and the actual game itself.\nThe game is founded on a long-term/short-term benefit balance, each playable card is assigned a short-term deficit and a long-term change.\nThis long-term change can be positive or negative.\nOnce you are on the card game tab, the game may be started by pressing one of the two app icons on screen.\nThis will kick-start the game and two randomly selected cards will be displayed.\nEach card image details its effects and pressing it will update the game accordingly.\nThis game is a two-player game, with the console box below the cards detailing each action."/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

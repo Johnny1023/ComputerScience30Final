@@ -1,42 +1,25 @@
 package com.jophnny.myapplication;
 
-import android.animation.TypeConverter;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ScrollView;
+import android.widget.ImageButton;
+//import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ECG.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ECG#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ECG extends Fragment {
 
     private OnFragmentInteractionListener mListener;
@@ -86,8 +69,8 @@ public class ECG extends Fragment {
         final TextView textItem = view.findViewById(R.id.text_box);
         textItem.setMovementMethod(new ScrollingMovementMethod());
 
-        Button card1 = (Button) view.findViewById(R.id.card1);
-        Button card2 = (Button) view.findViewById(R.id.card2);
+        ImageButton card1 = (ImageButton) view.findViewById(R.id.card1);
+        ImageButton card2 = (ImageButton) view.findViewById(R.id.card2);
         a = CardSelector(unselectable); // Selects cards for both players' hands
         card1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -140,10 +123,38 @@ public class ECG extends Fragment {
     int turncount = 1;
     int a;
 // TODO add instructions
+
+    int GetDrawableID(String name) {
+        if (name.equals("1 of Oils")) {return R.drawable.oils1;}
+        else if (name.equals("2 of Oils")) {return R.drawable.oils2;}
+        else if (name.equals("3 of Oils")) {return R.drawable.oils3;}
+        else if (name.equals("4 of Oils")) {return R.drawable.oils4;}
+        else if (name.equals("5 of Oils")) {return R.drawable.oils5;}
+        else if (name.equals("6 of Oils")) {return R.drawable.oils6;}
+        else if (name.equals("1 of Industrials")) {return R.drawable.industrials1;}
+        else if (name.equals("2 of Industrials")) {return R.drawable.industrials2;}
+        else if (name.equals("3 of Industrials")) {return R.drawable.industrials3;}
+        else if (name.equals("4 of Industrials")) {return R.drawable.industrials4;}
+        else if (name.equals("5 of Industrials")) {return R.drawable.industrials5;}
+        else if (name.equals("6 of Industrials")) {return R.drawable.industrials6;}
+        else if (name.equals("1 of Renewables")) {return R.drawable.renewables1;}
+        else if (name.equals("2 of Renewables")) {return R.drawable.renewables2;}
+        else if (name.equals("3 of Renewables")) {return R.drawable.renewables3;}
+        else if (name.equals("4 of Renewables")) {return R.drawable.renewables4;}
+        else if (name.equals("5 of Renewables")) {return R.drawable.renewables5;}
+        else if (name.equals("6 of Renewables")) {return R.drawable.renewables6;}
+        else if (name.equals("1 of Botany")) {return R.drawable.botany1;}
+        else if (name.equals("2 of Botany")) {return R.drawable.botany2;}
+        else if (name.equals("3 of Botany")) {return R.drawable.botany3;}
+        else if (name.equals("4 of Botany")) {return R.drawable.botany4;}
+        else if (name.equals("5 of Botany")) {return R.drawable.botany5;}
+        else {return R.drawable.botany6;}
+    }
+
     void Game(final String[] cards, @NonNull final View view) { // Operates the game
         final TextView textItem = view.findViewById(R.id.text_box);
-        Button card1 = (Button) view.findViewById(R.id.card1);
-        Button card2 = (Button) view.findViewById(R.id.card2);
+        ImageButton card1 = (ImageButton) view.findViewById(R.id.card1);
+        ImageButton card2 = (ImageButton) view.findViewById(R.id.card2);
         if (gaming) {
             if (P1turn && (choice[0] == 0)) {
                 textItem.append("Turn: " + turncount + "    ");
@@ -152,6 +163,8 @@ public class ECG extends Fragment {
                 textItem.append(hand1[1]);
                 p1p = p1p + p1ppt;
                 textItem.append("\n" + "Current Pollution Point: " + p1p + ", Point Change Per Turn: " + p1ppt + ".");
+                card1.setImageResource(GetDrawableID(hand1[0]));
+                card2.setImageResource(GetDrawableID(hand1[1]));
                 card1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         choice[0] = 1;
@@ -175,16 +188,6 @@ public class ECG extends Fragment {
                 for (int j = 0; j < 5; j++) {textItem.append("\n");}
                 choice[0] = 0;
                 if (p1ppt >= 0) {Win(true, view); gaming = false;} // Finish game if one person nets a "net zero"
-//                card1.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        Game(cards,view);
-//                    }
-//                });
-//                card2.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        Game(cards,view);
-//                    }
-//                });
                 Game(cards,view);
             } else if (!P1turn && (choice[0] == 0)) {
                 textItem.append("Turn: " + turncount + "    ");
@@ -193,6 +196,8 @@ public class ECG extends Fragment {
                 textItem.append(hand2[1]);
                 p2p = p2p + p2ppt;
                 textItem.append("\n" + "Current Pollution Point: " + p2p + ", Point Change Per Turn: " + p2ppt + ".");
+                card1.setImageResource(GetDrawableID(hand2[0]));
+                card2.setImageResource(GetDrawableID(hand2[1]));
                 card1.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         choice[0] = 1;
@@ -217,16 +222,6 @@ public class ECG extends Fragment {
                 choice[0] = 0;
                 turncount++;
                 if (p2ppt >= 0) {Win(true, view); gaming = false;} // Finish game if one person nets a "net zero"
-//                card1.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        Game(cards,view);
-//                    }
-//                });
-//                card2.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        Game(cards,view);
-//                    }
-//                });
                 Game(cards,view);
             }
         } else {
@@ -304,10 +299,10 @@ public class ECG extends Fragment {
     void Win(boolean trueWin, @NonNull View view)
     {
         final TextView textItem = view.findViewById(R.id.text_box);
-        Button card1 = (Button) view.findViewById(R.id.card1);
-        Button card2 = (Button) view.findViewById(R.id.card2);
-        card1.setText("");
-        card2.setText("");
+        ImageButton card1 = (ImageButton) view.findViewById(R.id.card1);
+        ImageButton card2 = (ImageButton) view.findViewById(R.id.card2);
+        card1.setImageResource(0);
+        card2.setImageResource(0);
         if (trueWin) {
             if (p2p < p1p)
             {
@@ -327,7 +322,7 @@ public class ECG extends Fragment {
         }
         else
         {
-            textItem.append("No Cards Left!"); // No Card Win
+            textItem.append("\n" + "No Cards Left!" + "\n"); // No Card Win
             if (p1p < p2p) {textItem.append("Player 1 won! They had less pollution when the cards had ran out.");}
             if (p1p > p2p) {textItem.append("Player 2 won! They had less pollution when the cards had ran out.");}
         }
